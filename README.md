@@ -59,7 +59,7 @@ LIBIFY is a comprehensive library management system designed to assist library a
    ```
 3. Start the backend server:
    ```bash
-   python main.py
+   uvicorn backend.app:app
    ```
 4. Open the index.html in your preferred browser.
 
