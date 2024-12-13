@@ -1,4 +1,4 @@
-# Library-Management-System
+# LIBIFY - Library Management System
 
 it a a system that help library adminstration, in managing the libaray.
 
