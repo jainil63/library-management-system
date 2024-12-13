@@ -61,8 +61,8 @@ LIBIFY is a comprehensive library management system designed to assist library a
    ```bash
    uvicorn backend.app:app
    ```
-4. Open the index.html in your preferred browser.
-
+4. Open the `./frontend/index.html` in your preferred browser.
+ 
 ---
 
 ## Contributors
