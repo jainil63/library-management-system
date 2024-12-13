@@ -70,10 +70,10 @@ LIBIFY is a comprehensive library management system designed to assist library a
 This project is made possible by the following contributors:
 
 - [Jainil](https://github.com/jainil63)  
-  _Lead Developer_
+  _Frontend Developer_
 
 - [Jeel](https://github.com/JeelDobariya38)  
-  _Contributor_
+  _Backend Developer_
 
 We welcome contributions from the community! Feel free to submit issues or create pull requests to improve LIBIFY.
 
