@@ -43,25 +43,35 @@ LIBIFY is a comprehensive library management system designed to assist library a
 
 ### Prerequisites:
 1. Install [Python 3.11+](https://www.python.org/downloads/).
-2. Install the required libraries:
-   ```bash
-   pip install -r requirements.txt
-   ```
+2. Install the required libraries.
+   
 
 ### Steps:
 1. Clone the repository:
    ```bash
    git clone https://github.com/jainil63/library-management-system.git
    ```
+
 2. Navigate to the project directory:
    ```bash
    cd library-management-system
    ```
-3. Start the backend server:
+
+3. Install the required libraries
    ```bash
-   uvicorn backend.app:app
+   pip install -r requirements.txt
    ```
-4. Open the `./frontend/index.html` in your preferred browser.
+
+4. Start the backend server:
+   ```bash
+   uvicorn backend:app --host 127.0.0.1 --port 8080
+   ```
+   OR
+   ```bash
+   uvicorn backend.app:app --host 127.0.0.1 --port 8080
+   ```
+
+5. Open the `http://127.0.0.1:8080` in your preferred browser.
  
 ---
 
