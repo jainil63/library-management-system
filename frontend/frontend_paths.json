@@ -2,7 +2,7 @@
   "/frontend": {
     "get": {
       "tags": ["Frontend"],
-      "summary": "Static Files",
+      "summary": "Static Contents",
       "responses": {
         "200": {
           "content": {
@@ -16,7 +16,7 @@
   "/frontend/index.html": {
     "get": {
       "tags": ["Frontend"],
-      "summary": "Homepage",
+      "summary": "Homepage Of Website",
       "responses": {
         "200": {
           "content": {
@@ -28,6 +28,34 @@
     }
   },
   "/frontend/style.css": {
+    "get": {
+      "tags": ["Frontend"],
+      "summary": "StyleSheet",
+      "responses": {
+        "200": {
+          "content": {
+            "text/css": {
+            }
+          }
+        }
+      }
+    }
+  },
+  "/frontend/loginpage.html": {
+    "get": {
+      "tags": ["Frontend"],
+      "summary": "Login/Signup Form",
+      "responses": {
+        "200": {
+          "content": {
+            "text/html": {
+            }
+          }
+        }
+      }
+    }
+  },
+  "/frontend/login.css": {
     "get": {
       "tags": ["Frontend"],
       "summary": "StyleSheet",
