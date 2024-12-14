@@ -3,19 +3,16 @@ from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
 from .api import api_router
+from .metadata import Config
 
 
 # API
 app = FastAPI(
-    title="LIBIFY API",
-    summary="library management system",
-    description="LIBIFY is a comprehensive library management system designed to assist library administrators in efficiently managing their libraries. The system ensures ease of use, secure data handling, and a robust platform for both users and administrators.",
-    version="v1",
-    license_info={ 
-        "name": "MIT", 
-        "identifier": "MIT", 
-        "url": "https://github.com/jainil63/library-management-system/blob/main/LICENSE.txt"
-    }, 
+    title=Config.APP_NAME,
+    summary=Config.APP_SUMMARY,
+    description=Config.APP_DESCRIPTION,
+    version=Config.API_VERSION,
+    license_info=Config.LICENSE_INFO
 )
 
 
@@ -24,13 +21,13 @@ app.mount("/frontend", StaticFiles(directory="frontend", html=True), name="front
 
 
 # Redirecting user to frontend
-@app.get("/", status_code=status.HTTP_307_TEMPORARY_REDIRECT)
+@app.get("/", status_code=status.HTTP_307_TEMPORARY_REDIRECT, tags=["Frontend"])
 def root():
     return RedirectResponse("/frontend")
 
 
 # Health Check
-@app.get("/health", status_code=status.HTTP_200_OK)
+@app.get("/health", status_code=status.HTTP_200_OK, tags=["Health Check"])
 def health():
     return {
         "message": "Server is up in running!!",
@@ -41,4 +38,4 @@ def health():
 
 
 # API Router
-app.include_router(api_router, prefix="/api/v1", tags=["api"])
+app.include_router(api_router, prefix="/api/v1", tags=["Backend"])
