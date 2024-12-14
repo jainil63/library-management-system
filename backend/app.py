@@ -1,6 +1,8 @@
-from fastapi import FastAPI, Response
+from fastapi import FastAPI, APIRouter, Response
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
+
+from .api import api_router
 
 
 # API
@@ -13,22 +15,14 @@ app = FastAPI(
 
 
 # Serving the static files using middleware
-app.mount("/frontend", StaticFiles(directory="frontend"), name="frontend")
+app.mount("/frontend", StaticFiles(directory="frontend", html=True), name="frontend")
 
 
 # Redirecting user to frontend
 @app.get("/")
 def root():
-    return RedirectResponse("/frontend/index.html")
+    return RedirectResponse("/frontend")
 
-
-# API HOME
-@app.get("/api/v1")
-def api_homepage():
-    return {
-        "apiname": "LIBIFY API - Library Management System",
-        "version": "0.1.0"
-    }
 
 # Health Check
 @app.get("/health")
@@ -39,3 +33,6 @@ def health():
         "version": "0.1.0",
         "status": "running!!!"
     }
+
+# API Router
+app.include_router(api_router, prefix="/api/v1", tags=["api"])
