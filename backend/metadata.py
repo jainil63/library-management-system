@@ -1,3 +1,12 @@
+import json
+from pathlib import Path
+
+
+def get_frontend_paths(path):
+    with open(path) as file:
+         return json.load(file)
+
+
 class Config:
     APP_NAME = "LIBIFY APP"
     APP_SUMMARY = "Library Management System"
@@ -6,7 +15,8 @@ class Config:
     API_NAME = "LIBIFY API - Library Management System"
     API_VERSION = "v1"
     LICENSE_INFO = {
-        "name": "MIT", 
+        "name": "MIT LICENSE", 
         "identifier": "MIT", 
         "url": "https://github.com/jainil63/library-management-system/blob/main/LICENSE.txt"
     }
+    FRONTEND_PATH = get_frontend_paths(Path(__file__).parent / ".." / "frontend" / "frontend_paths.json")

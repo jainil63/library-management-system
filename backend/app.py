@@ -43,19 +43,14 @@ app.openapi = custom_openapi_schema_generator  # Modify fastapi schema function 
 app.mount("/frontend", StaticFiles(directory="frontend", html=True), name="frontend")
 
 
+@app.get("/health", status_code=status.HTTP_200_OK, tags=["Health Check"])
+def health_check():
+    return "Server is up in running!! 👍👍"
+
+
 @app.get("/", status_code=status.HTTP_307_TEMPORARY_REDIRECT, tags=["Frontend"])
 def root():
     return RedirectResponse("/frontend")
-
-
-@app.get("/health", status_code=status.HTTP_200_OK, tags=["Health Check"])
-def health():
-    return {
-        "message": "Server is up in running!!",
-        "api-home": "/api/v1",
-        "version": "0.1.0",
-        "status": "running!!!"
-    }
 
 
 app.include_router(api_router, prefix="/api/v1", tags=["Backend"])

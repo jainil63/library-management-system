@@ -1,0 +1,44 @@
+{
+  "/frontend": {
+    "get": {
+      "tags": ["Frontend"],
+      "summary": "Static Files",
+      "responses": {
+        "200": {
+          "content": {
+            "text/html": {
+            }
+          }
+        }
+      }
+    }
+  },
+  "/frontend/index.html": {
+    "get": {
+      "tags": ["Frontend"],
+      "summary": "Homepage",
+      "responses": {
+        "200": {
+          "content": {
+            "text/html": {
+            }
+          }
+        }
+      }
+    }
+  },
+  "/frontend/style.css": {
+    "get": {
+      "tags": ["Frontend"],
+      "summary": "StyleSheet",
+      "responses": {
+        "200": {
+          "content": {
+            "text/css": {
+            }
+          }
+        }
+      }
+    }
+  }
+}
