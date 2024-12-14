@@ -1,1 +1,1 @@
-uvicorn backend.app:app
+uvicorn backend:app
