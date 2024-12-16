@@ -1,34 +1,27 @@
-from fastapi import APIRouter
-
-
 from fastapi import APIRouter, status
-from pydantic import BaseModel
-from typing import Optional
 
-from ..database import data
-
-
-class User(BaseModel):
-    id: Optional[int] = -1
-    username: str
-    password: str
+from ..database import Database
+from ..models import User
 
 
 user_router = APIRouter()
 
 
-@user_router.post("/")
+@user_router.post("/", response_model=User, status_code=status.HTTP_201_CREATED)
 def create_user(user: User):
-    user.id = len(data["users"])
-    data["users"].append(user)
+    user.id = len(Database.data["users"])
+    Database.data["users"].append(user.model_dump())
     return user
 
 
 @user_router.get("/")
 def get_users():
-    return data["users"]
+    users = Database.data["users"]
+    return {
+        "users": users
+    }
 
 
-@user_router.get("/{id}")
+@user_router.get("/{id}", response_model=User)
 def get_user_by_id(id: int):
-    return data["users"][id]
+    return Database.data["users"][id]
