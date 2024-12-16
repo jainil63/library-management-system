@@ -11,7 +11,7 @@ class LoginFormData(BaseModel):
 
 
 class CreateAccountFormData(BaseModel):
-    full name: str
+    fullname: str
     email: str
     username: str
     password: str
