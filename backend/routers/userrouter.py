@@ -21,7 +21,7 @@ user_router = APIRouter()
 def create_user(user: User):
     user.id = len(data["users"])
     data["users"].append(user)
-    return "user created!!"
+    return user
 
 
 @user_router.get("/")
