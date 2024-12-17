@@ -1,21 +1,44 @@
-import os
-import json
+import sqlite3
 
 
 class Database:
-    filepath = "database.json"
-    data = {
-        "users": []
-    }
+    instance = None
     
-    def load():
-        if not os.path.exists(Database.filepath):
-            print("APP LOGS: Database not exists!!!!")
-            return
+    @staticmethod
+    def get_db(name = ":memory:"):
+        if not Database.instance:
+            Database.instance = Database(name)
+        return Database.instance
+    
+    @staticmethod
+    def close():
+        Database.instance.disconnect()
+        Database.instance = None
+    
+    def __init__(self, name: str):
+        self.name = name
+        self.conn = None
+        self.cursor = None
+        self.isactive = False
+    
+    def connect(self):
+        self.conn = sqlite3.connect(self.name)
+        self.cursor = self.conn.cursor()
+        self.isactive = True
+        print("Successfully connected with database!!!")
+        return self
+    
+    def execute_sql(self, sqlstatement, *args):
+        if not self.isactive:
+            raise Exception("Database is not connected!!")
         
-        with open(Database.filepath) as file:
-            Database.data = json.load(file)
+        self.cursor.execute(sqlstatement, *args)
+        self.cursor.commit()
+        return self.cursor.fetchall()
+
+    def disconnect(self):
+        self.isactive = False
+        self.cursor.close()
+        self.conn.close()
+        print("Successfully disconnected with database!!!")
     
-    def save():
-        with open(Database.filepath, "w") as file:
-            json.dump(Database.data, file, indent=4)
