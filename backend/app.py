@@ -6,7 +6,6 @@ from fastapi.openapi.utils import get_openapi
 from .api import api_router
 from .metadata import Config
 from .custom_schema import modify_openapi_schema
-from .database import Database
 
 
 app = FastAPI(
@@ -14,9 +13,7 @@ app = FastAPI(
     version=Config.API_VERSION,
     summary=Config.APP_SUMMARY,
     description=Config.APP_DESCRIPTION,
-    license_info=Config.LICENSE_INFO,
-    on_startup=[Database.load],
-    on_shutdown=[Database.save]
+    license_info=Config.LICENSE_INFO
 )
 
 
