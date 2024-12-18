@@ -7,7 +7,6 @@ from typing import Annotated
 class LoginFormData(BaseModel):
     username: str
     password: str
-    model_config = {"extra": "forbid"}
 
 
 class CreateAccountFormData(BaseModel):
@@ -15,13 +14,12 @@ class CreateAccountFormData(BaseModel):
     email: str
     username: str
     password: str
-    model_config = {"extra": "forbid"}
 
 
 auth_router = APIRouter()
 
 
-@auth_router.get("/login")
+@auth_router.post("/login")
 def login(data: Annotated[LoginFormData, Form()]):
     raise NotImplementedError()
 
