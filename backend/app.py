@@ -4,7 +4,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.openapi.utils import get_openapi
 
 from .api import api_router
-from .database import Database
+from . import database
 from .metadata import Config
 from .custom_schema import modify_openapi_schema
 
@@ -14,10 +14,14 @@ app = FastAPI(
     version=Config.API_VERSION,
     summary=Config.APP_SUMMARY,
     description=Config.APP_DESCRIPTION,
-    license_info=Config.LICENSE_INFO,
-    on_startup=[Database.init],
-    on_shutdown=[Database.close]
+    license_info=Config.LICENSE_INFO
 )
+
+
+@app.on_event("startup")
+def startup_event():
+    database.init_db()
+    print("Database initialized!!!")
 
 
 # Ref:- https://fastapi.tiangolo.com/how-to/extending-openapi/#overriding-the-defaults
