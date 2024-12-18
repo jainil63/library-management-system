@@ -7,6 +7,14 @@ def get_frontend_paths(path):
          return json.load(file)
 
 
+def get_sqlscript_content(path):
+    sql = ""
+    with open(path) as file:
+        sql = file.read()
+    # print(sql.replace("\n", ""))
+    return sql
+
+
 class Config:
     APP_NAME = "LIBIFY APP"
     APP_SUMMARY = "Library Management System"
@@ -20,3 +28,5 @@ class Config:
         "url": "https://github.com/jainil63/library-management-system/blob/main/LICENSE.txt"
     }
     FRONTEND_PATH = get_frontend_paths(Path(__file__).parent / ".." / "frontend" / "frontend_paths.json")
+    INIT_DB_SQL = get_sqlscript_content(Path(__file__).parent / "initdb.sql")
+    DATABASE_URL = "app.db"
