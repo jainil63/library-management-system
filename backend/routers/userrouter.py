@@ -1,4 +1,5 @@
-from fastapi import APIRouter, status
+from fastapi import APIRouter, Depends, status
+from typing import Annotated
 
 from ..database import Database
 from ..models import User
@@ -7,21 +8,19 @@ from ..models import User
 user_router = APIRouter()
 
 
-@user_router.post("/", response_model=User, status_code=status.HTTP_201_CREATED)
+@user_router.post("/", status_code=status.HTTP_201_CREATED)
 def create_user(user: User):
-    user.id = len(Database.data["users"])
-    Database.data["users"].append(user.model_dump())
-    return user
+    db = Database.get_db()
+    db.execute_sql("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username VARCHAR, password VARCHAR)")
+    return 200
 
 
 @user_router.get("/")
 def get_users():
-    users = Database.data["users"]
-    return {
-        "users": users
-    }
+    db = Database.get_db()
+    result = db.execute_sql("SELECT * FROM users");
+    return result
 
-
-@user_router.get("/{id}", response_model=User)
+@user_router.get("/{id}")
 def get_user_by_id(id: int):
-    return Database.data["users"][id]
+    raise NotImplementedError()

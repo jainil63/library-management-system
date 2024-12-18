@@ -1,19 +1,28 @@
 import sqlite3
 
 
+from .metadata import Config
+
+
 class Database:
     instance = None
     
     @staticmethod
-    def get_db(name = ":memory:"):
-        if not Database.instance:
-            Database.instance = Database(name)
+    def init(name = ":memory:"):
+        db = Database(name)
+        db.connect()
+        db.cursor.executescript(Config.INIT_DB_SQL)
+        Database.instance = db
+    
+    @staticmethod
+    def get_db():
+        if not Database.instance.isactive:
+            Database.instance.connect()
         return Database.instance
     
     @staticmethod
     def close():
         Database.instance.disconnect()
-        Database.instance = None
     
     def __init__(self, name: str):
         self.name = name
@@ -33,7 +42,7 @@ class Database:
             raise Exception("Database is not connected!!")
         
         self.cursor.execute(sqlstatement, *args)
-        self.cursor.commit()
+        self.conn.commit()
         return self.cursor.fetchall()
 
     def disconnect(self):
@@ -41,4 +50,4 @@ class Database:
         self.cursor.close()
         self.conn.close()
         print("Successfully disconnected with database!!!")
-    
+
