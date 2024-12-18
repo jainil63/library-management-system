@@ -7,3 +7,5 @@ class User(BaseModel):
     id: Optional[int | None] = None
     username: str
     password: str
+    email: str
+    mobileno: str
