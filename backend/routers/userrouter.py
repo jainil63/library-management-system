@@ -51,15 +51,15 @@ def get_user_by_id(id: int, conn: sqlite3.Connection = Depends(get_db)):
 def update_user_by_id(id: int, user: User, conn: sqlite3.Connection = Depends(get_db)):
     cursor = conn.cursor()
     cursor.execute("""
-            UPDATE users SET 
+            UPDATE users 
             SET username = ?, password = ?, email = ?, mobileno = ?
             WHERE id = ?
-        """, (user.username, user.password, user.email, user.mobileno)
+        """, (user.username, user.password, user.email, user.mobileno, id)
     )
     conn.commit()
     cursor.execute("SELECT * FROM users WHERE id = ?", (id,))
     updateuser = cursor.fetchone()
-    if user:
+    if updateuser:
         return updateuser
     else:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Username Not Found!!!")
