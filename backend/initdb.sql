@@ -3,10 +3,12 @@ BEGIN;
 -- Create users table
 CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    fullname TEXT NOT NULL,
     username TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL,
     email TEXT,
-    mobileno TEXT
+    mobileno TEXT,
+    isadmin BOOLEAN DEFAULT 0
 );
 
 -- Create category table
@@ -31,7 +33,7 @@ CREATE TABLE IF NOT EXISTS borrow (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     userid INTEGER,
     bookid INTEGER,
-    borrowedat DATE,
+    borrowedat DATE DEFAULT CURRENT_TIMESTAMP,
     returnat DATE,
     isreturned BOOLEAN DEFAULT 0,
     FOREIGN KEY (userid) REFERENCES users (id),
