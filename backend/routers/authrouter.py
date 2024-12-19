@@ -1,7 +1,7 @@
 import sqlite3
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, Form, HTTPException, status
+from fastapi import APIRouter, Depends, Form, HTTPException, Response, status
 
 from ..database import get_db
 from ..utils import create_token
@@ -11,7 +11,7 @@ auth_router = APIRouter()
 
 
 @auth_router.post("/login", response_model=Token)
-def login(data: Annotated[LoginFormData, Form()], conn: sqlite3.Connection = Depends(get_db)):
+def login(data: Annotated[LoginFormData, Form()], conn: sqlite3.Connection = Depends(get_db), response: Response):
     if data.username == "" or data.password == "":
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Data provided is not valid!!")
     
@@ -28,6 +28,7 @@ def login(data: Annotated[LoginFormData, Form()], conn: sqlite3.Connection = Dep
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid password!!")
     
     token = create_token(id=str(user["id"]), username=user["username"], isadmin=user["isadmin"])
+    response.set_cookie(key="access-token", value=token)
     return { "token": token }
 
 
