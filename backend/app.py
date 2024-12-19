@@ -2,7 +2,7 @@ from fastapi import FastAPI, Response, status
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.openapi.utils import get_openapi
-
+from fastapi.middleware.cors import CORSMiddleware
 from .api import api_router
 from . import database
 from .metadata import Config
@@ -17,6 +17,13 @@ app = FastAPI(
     license_info=Config.LICENSE_INFO
 )
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
 
 @app.on_event("startup")
 def startup_event():
