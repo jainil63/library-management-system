@@ -11,7 +11,7 @@ auth_router = APIRouter()
 
 
 @auth_router.post("/login", response_model=Token)
-def login(data: Annotated[LoginFormData, Form()], conn: sqlite3.Connection = Depends(get_db), response: Response):
+def login(data: Annotated[LoginFormData, Form()], response: Response, conn: sqlite3.Connection = Depends(get_db)):
     if data.username == "" or data.password == "":
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Data provided is not valid!!")
     
@@ -30,6 +30,12 @@ def login(data: Annotated[LoginFormData, Form()], conn: sqlite3.Connection = Dep
     token = create_token(id=str(user["id"]), username=user["username"], isadmin=user["isadmin"])
     response.set_cookie(key="access-token", value=token)
     return { "token": token }
+
+
+@auth_router.get("/logout")
+def logout(response: Response):
+    response.delete_cookie("access-token")
+    return "Logout Successfully!!!"
 
 
 @auth_router.post("/signup", status_code=status.HTTP_201_CREATED, response_model=UserOut)
