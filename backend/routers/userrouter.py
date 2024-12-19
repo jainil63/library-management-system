@@ -12,19 +12,21 @@ user_router = APIRouter()
 
 @user_router.post("/", status_code=status.HTTP_201_CREATED)
 def create_user(user: User, conn: sqlite3.Connection = Depends(get_db)):
+    if user.fullname == "" or user.email == "" or user.username == "" or user.password == "":
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENITITY, detail="data provided is not valid!!")
+    
     cursor = conn.cursor()
     try:
         cursor.execute(
-            "INSERT INTO users (fullname, username, password) VALUES (?, ?, ?)",
-            (user.fullname, user.username, user.password)
+            "INSERT INTO users (fullname, email, username, password) VALUES (?, ?, ?, ?)",
+            (user.fullname, user.email, user.username, user.password)
         )
-        user_id = cursor.lastrowid
-        cursor.execute("SELECT * FROM users WHERE id = ?", (user_id,))
-        conn.commit()
     except sqlite3.IntegrityError:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Username already exists")
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Username already exists!!!")
     
-    newuser = cursor.fetchall()
+    user_id = cursor.lastrowid
+    cursor.execute("SELECT * FROM users WHERE id = ?", (user_id,))
+    newuser = cursor.fetchone()
     return newuser
 
 
