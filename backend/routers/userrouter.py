@@ -1,19 +1,27 @@
+import sqlite3
+from typing import Annotated, List
+
 from fastapi import APIRouter, Depends, HTTPException, Response, status
-from typing import Annotated
 
 from ..database import get_db
-from ..models import User
-
-import sqlite3
+from ..schemas import UserIn, UserOut
 
 
 user_router = APIRouter()
 
 
-@user_router.post("/", status_code=status.HTTP_201_CREATED)
-def create_user(user: User, conn: sqlite3.Connection = Depends(get_db)):
+@user_router.get("/")
+def get_users(conn: sqlite3.Connection = Depends(get_db)):
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM users")
+    users = cursor.fetchall()
+    return users
+
+
+@user_router.post("/", status_code=status.HTTP_201_CREATED, response_model=UserOut)
+def create_user(user: UserIn, conn: sqlite3.Connection = Depends(get_db)):
     if user.fullname == "" or user.email == "" or user.username == "" or user.password == "":
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENITITY, detail="data provided is not valid!!")
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENITITY, detail="Data provided is not valid!!")
     
     cursor = conn.cursor()
     try:
@@ -27,31 +35,23 @@ def create_user(user: User, conn: sqlite3.Connection = Depends(get_db)):
     user_id = cursor.lastrowid
     cursor.execute("SELECT * FROM users WHERE id = ?", (user_id,))
     newuser = cursor.fetchone()
-    return newuser
+    return dict(newuser)
 
 
-@user_router.get("/")
-def get_users(conn: sqlite3.Connection = Depends(get_db)):
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM users")
-    users = cursor.fetchall()
-    return users
-
-
-@user_router.get("/{id}")
+@user_router.get("/{id}", response_model=UserOut)
 def get_user_by_id(id: int, conn: sqlite3.Connection = Depends(get_db)):
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM users WHERE id = ?", (id,))
     user = cursor.fetchone()
     if user:
-        return user
+        return dict(user)
     else:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Username Not Found!!!")
     
 
 
-@user_router.put("/{id}")
-def update_user_by_id(id: int, user: User, conn: sqlite3.Connection = Depends(get_db)):
+@user_router.put("/{id}", response_model=UserOut)
+def update_user_by_id(id: int, user: UserIn, conn: sqlite3.Connection = Depends(get_db)):
     cursor = conn.cursor()
     cursor.execute("""
             UPDATE users 
@@ -63,7 +63,7 @@ def update_user_by_id(id: int, user: User, conn: sqlite3.Connection = Depends(ge
     cursor.execute("SELECT * FROM users WHERE id = ?", (id,))
     updateuser = cursor.fetchone()
     if updateuser:
-        return updateuser
+        return dict(updateuser)
     else:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Username Not Found!!!")
 
