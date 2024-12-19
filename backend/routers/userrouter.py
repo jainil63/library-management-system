@@ -6,6 +6,7 @@ from ..models import User
 
 import sqlite3
 
+
 user_router = APIRouter()
 
 
@@ -14,8 +15,8 @@ def create_user(user: User, conn: sqlite3.Connection = Depends(get_db)):
     cursor = conn.cursor()
     try:
         cursor.execute(
-            "INSERT INTO users (username, password) VALUES (?, ?)",
-            (user.username, user.password)
+            "INSERT INTO users (fullname, username, password) VALUES (?, ?, ?)",
+            (user.fullname, user.username, user.password)
         )
         user_id = cursor.lastrowid
         cursor.execute("SELECT * FROM users WHERE id = ?", (user_id,))
