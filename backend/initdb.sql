@@ -11,21 +11,14 @@ CREATE TABLE IF NOT EXISTS users (
     isadmin BOOLEAN DEFAULT 0
 );
 
--- Create category table
-CREATE TABLE IF NOT EXISTS category (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL
-);
-
 -- Create books table
 CREATE TABLE IF NOT EXISTS books (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT NOT NULL,
     desc TEXT,
     author TEXT,
-    category INTEGER,
-    price INTEGER,
-    FOREIGN KEY (category) REFERENCES category (id)
+    category TEXT,
+    price INTEGER
 );
 
 -- Create borrow table

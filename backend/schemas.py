@@ -25,6 +25,7 @@ class CreateAccountFormData(BaseModel):
 # Users
 # -----------------------------------------
 
+
 class UserIn(BaseModel):
     fullname: str
     email: str
@@ -47,5 +48,18 @@ class UserOut(BaseModel):
 # -----------------------------------------
 
 
-class BookBase(BaseModel):
-    pass
+class BookIn(BaseModel):
+    title: str
+    desc: str
+    author: str
+    category: str
+    prize: int
+
+
+class BookOut(BaseModel):
+    id: int
+    title: str
+    desc: str
+    author: str
+    category: str
+    prize: int
