@@ -3,6 +3,7 @@ from fastapi.responses import RedirectResponse
 
 from .metadata import Config
 from .routers.userrouter import user_router
+from .routers.bookrouter import book_router
 from .routers.authrouter import auth_router
 from .utils import verify_and_decode_token
 
@@ -36,4 +37,5 @@ def user_profile(request: Request):
 
 
 api_router.include_router(user_router, prefix="/users", tags=["Backend", "Users"])
+api_router.include_router(book_router, prefix="/books", tags=["Backend", "Books"])
 api_router.include_router(auth_router, prefix="/auth", tags=["Backend", "Auth"])

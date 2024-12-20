@@ -21,7 +21,7 @@ def get_users(conn: sqlite3.Connection = Depends(get_db)):
 @user_router.post("/", status_code=status.HTTP_201_CREATED, response_model=UserOut)
 def create_user(user: UserIn, conn: sqlite3.Connection = Depends(get_db)):
     if user.fullname == "" or user.email == "" or user.username == "" or user.password == "":
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENITITY, detail="Data provided is not valid!!")
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Data provided is not valid!!")
     
     cursor = conn.cursor()
     try:
@@ -52,6 +52,9 @@ def get_user_by_id(id: int, conn: sqlite3.Connection = Depends(get_db)):
 
 @user_router.put("/{id}", response_model=UserOut)
 def update_user_by_id(id: int, user: UserIn, conn: sqlite3.Connection = Depends(get_db)):
+    if user.fullname == "" or user.email == "" or user.username == "" or user.password == "":
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Data provided is not valid!!")
+    
     cursor = conn.cursor()
     cursor.execute("""
             UPDATE users 

@@ -53,7 +53,7 @@ class BookIn(BaseModel):
     desc: str
     author: str
     category: str
-    prize: int
+    price: int
 
 
 class BookOut(BaseModel):
@@ -62,4 +62,4 @@ class BookOut(BaseModel):
     desc: str
     author: str
     category: str
-    prize: int
+    price: int
