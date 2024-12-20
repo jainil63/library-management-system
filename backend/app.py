@@ -25,10 +25,11 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
+
 @app.on_event("startup")
 def startup_event():
     database.init_db()
-    print("Database initialized!!!")
+    print("INFO:     Database initialized!!!")
 
 
 # Ref:- https://fastapi.tiangolo.com/how-to/extending-openapi/#overriding-the-defaults
