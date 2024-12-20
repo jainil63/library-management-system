@@ -2,6 +2,7 @@ import sqlite3
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, Form, HTTPException, Response, status
+from fastapi.responses import RedirectResponse
 
 from ..database import get_db
 from ..utils import create_token
@@ -29,13 +30,13 @@ def login(data: Annotated[LoginFormData, Form()], response: Response, conn: sqli
     
     token = create_token(id=str(user["id"]), username=user["username"], isadmin=user["isadmin"])
     response.set_cookie(key="access-token", value=token)
-    return { "token": token }
+    return RedirectResponse(url="/frontend", status_code=status.HTTP_303_SEE_OTHER)
 
 
 @auth_router.get("/logout")
 def logout(response: Response):
     response.delete_cookie("access-token")
-    return "Logout Successfully!!!"
+    return RedirectResponse(url="/frontend", status_code=status.HTTP_303_SEE_OTHER)
 
 
 @auth_router.post("/signup", status_code=status.HTTP_201_CREATED, response_model=UserOut)
