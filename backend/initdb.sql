@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS users (
     fullname TEXT NOT NULL,
     username TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL,
-    email TEXT,
+    email TEXT NOT NULL,
     mobileno TEXT,
     isadmin BOOLEAN DEFAULT 0
 );
@@ -26,11 +26,7 @@ CREATE TABLE IF NOT EXISTS borrow (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     userid INTEGER,
     bookid INTEGER,
-    borrowedat DATE DEFAULT CURRENT_TIMESTAMP,
-    returnat DATE,
-    isreturned BOOLEAN DEFAULT 0,
     FOREIGN KEY (userid) REFERENCES users (id),
     FOREIGN KEY (bookid) REFERENCES books (id)
 );
 
-COMMIT;

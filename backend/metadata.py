@@ -30,3 +30,9 @@ class Config:
     FRONTEND_PATH = get_frontend_paths(Path(__file__).parent / ".." / "frontend" / "frontend_paths.json")
     INIT_DB_SQL = get_sqlscript_content(Path(__file__).parent / "initdb.sql")
     DATABASE_URL = "app.db"
+    ADMIN_USER = {
+        "fullname": "monster",
+        "username": "admin",
+        "password": "beastuser",
+        "email": "monster@admin.com"
+    }

@@ -29,6 +29,7 @@ app.add_middleware(
 @app.on_event("startup")
 def startup_event():
     database.init_db()
+    database.ensure_admin_user()
     print("INFO:     Database initialized!!!")
 
 

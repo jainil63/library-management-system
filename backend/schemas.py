@@ -63,3 +63,8 @@ class BookOut(BaseModel):
     author: str
     category: str
     price: int
+
+
+class BorrowParams(BaseModel):
+    userid: int
+    bookid: int
