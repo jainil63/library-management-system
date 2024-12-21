@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Response, status
+from fastapi import FastAPI, HTTPException, Response, status
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.openapi.utils import get_openapi
@@ -67,6 +67,21 @@ def health_check():
 @app.get("/", status_code=status.HTTP_307_TEMPORARY_REDIRECT, tags=["Frontend"])
 def root():
     return RedirectResponse("/frontend")
+
+
+@app.get("/reset/{masterpassword}", tags=["Super Admins Only"])
+def reset_all_data(masterpassword: str):
+    """
+    It reset all the database.
+    """
+    if masterpassword == Config.MASTERPASSWORD:
+        database.delete_db()
+        database.init_db()
+        database.ensure_admin_user()
+        print("INFO:     Database reinitialized!!!")
+        return RedirectResponse("/frontend")
+    else:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorrect MasterPassword!!")
 
 
 app.include_router(api_router, prefix="/api/v1", tags=["Backend"])

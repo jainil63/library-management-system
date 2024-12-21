@@ -1,5 +1,5 @@
 import sqlite3
-
+import os
 
 from .metadata import Config
 
@@ -56,3 +56,7 @@ def ensure_admin_user():
     finally:
         cursor.close()
         conn.close()
+
+
+def delete_db():
+    os.remove(Config.DATABASE_URL)
