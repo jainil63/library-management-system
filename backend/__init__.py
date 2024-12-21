@@ -1,2 +1,2 @@
 # backend/__init__.py
-from .app import app
+from .app import app as app

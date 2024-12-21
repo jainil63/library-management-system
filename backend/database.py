@@ -42,17 +42,17 @@ def ensure_admin_user():
                     Config.ADMIN_USER["username"],
                     Config.ADMIN_USER["password"],
                     Config.ADMIN_USER["email"],
-                    1
-                )
+                    1,
+                ),
             )
             conn.commit()
             print("INFO:     Admin user created successfully!!!")
         else:
             print("INFO:     Admin user already exists!!!")
-    
+
     except sqlite3.Error as e:
         raise Exception(f"ERROR:    An error occurred: {e}")
-    
+
     finally:
         cursor.close()
         conn.close()
