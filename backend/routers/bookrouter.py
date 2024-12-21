@@ -1,10 +1,10 @@
 import sqlite3
 from typing import Annotated, List
 
-from fastapi import APIRouter, Depends, HTTPException, Response, status
+from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
 
 from ..database import get_db
-from ..schemas import BookIn, BookOut
+from ..schemas import BookIn, BookOut, BorrowParams
 
 
 book_router = APIRouter()
@@ -16,6 +16,16 @@ def get_books(conn: sqlite3.Connection = Depends(get_db)):
     cursor.execute("SELECT * FROM books")
     books = cursor.fetchall()
     return books
+
+
+@book_router.post("/borrow")
+def borrow_book(params: Annotated[BorrowParams, Query()],  conn: sqlite3.Connection = Depends(get_db)):
+    return NotImplementedError()
+
+
+@book_router.post("/return")
+def return_book(params: Annotated[BorrowParams, Query()],  conn: sqlite3.Connection = Depends(get_db)):
+    return NotImplementedError()
 
 
 @book_router.post("/", status_code=status.HTTP_201_CREATED, response_model=BookOut)

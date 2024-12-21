@@ -1,4 +1,6 @@
-from fastapi import APIRouter, Request, status
+import sqlite3
+
+from fastapi import APIRouter, Depends, Request, status
 from fastapi.responses import RedirectResponse
 
 from .metadata import Config
@@ -6,7 +8,7 @@ from .routers.userrouter import user_router
 from .routers.bookrouter import book_router
 from .routers.authrouter import auth_router
 from .utils import verify_and_decode_token
-
+from .database import get_db
 
 api_router = APIRouter()
 
@@ -34,6 +36,14 @@ def user_profile(request: Request):
         return response
     
     return { "token": token, "user": payload }
+
+
+@api_router.get("/borrows")
+def get_all_active_borrow_book(conn: sqlite3.Connection = Depends(get_db)):
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM borrow")
+    borrow = cursor.fetchall()
+    return borrow
 
 
 api_router.include_router(user_router, prefix="/users", tags=["Backend", "Users"])
