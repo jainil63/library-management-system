@@ -18,15 +18,9 @@ CREATE TABLE IF NOT EXISTS books (
     desc TEXT,
     author TEXT,
     category TEXT,
-    price INTEGER
+    borrowby INTEGER DEFAULT NULL, 
+    price INTEGER,
+    FOREIGN KEY (borrowby) REFERENCES users (id),
 );
 
--- Create borrow table
-CREATE TABLE IF NOT EXISTS borrow (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    userid INTEGER,
-    bookid INTEGER,
-    FOREIGN KEY (userid) REFERENCES users (id),
-    FOREIGN KEY (bookid) REFERENCES books (id)
-);
-
+COMMIT;

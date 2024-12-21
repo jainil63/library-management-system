@@ -41,7 +41,7 @@ def user_profile(request: Request):
 @api_router.get("/borrows")
 def get_all_active_borrow_book(conn: sqlite3.Connection = Depends(get_db)):
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM borrow")
+    cursor.execute("SELECT * FROM books WHERE borrowby IS NOT NULL")
     borrow = cursor.fetchall()
     return borrow
 

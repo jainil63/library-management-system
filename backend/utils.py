@@ -17,4 +17,4 @@ def verify_and_decode_token(token):
         payload = jwt.decode(token, key="my_secret_key", algorithms=["HS256", ])
         return payload
     except InvalidTokenError as e:
-        return False
+        return None

@@ -1,7 +1,7 @@
 import sqlite3
 from typing import Annotated, List
 
-from fastapi import APIRouter, Depends, HTTPException, Response, status
+from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
 
 from ..database import get_db
 from ..schemas import UserIn, UserOut
@@ -72,7 +72,10 @@ def update_user_by_id(id: int, user: UserIn, conn: sqlite3.Connection = Depends(
 
 
 @user_router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_user_by_id(id: int, conn: sqlite3.Connection = Depends(get_db)):
+def delete_user_by_id(id: int, request: Request, conn: sqlite3.Connection = Depends(get_db)):
+    if not request.state.user or request.state.user["isadmin"] != 1:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Admin Only Route!!")
+    
     cursor = conn.cursor()
     cursor.execute("DELETE FROM users WHERE id = ?", (id,))
     conn.commit()

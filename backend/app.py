@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Response, status
+from fastapi import FastAPI, HTTPException, Request, Response, status
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.openapi.utils import get_openapi
@@ -7,6 +7,7 @@ from .api import api_router
 from . import database
 from .metadata import Config
 from .custom_schema import modify_openapi_schema
+from .utils import verify_and_decode_token
 
 
 app = FastAPI(
@@ -25,12 +26,30 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-
 @app.on_event("startup")
 def startup_event():
     database.init_db()
     database.ensure_admin_user()
     print("INFO:     Database initialized!!!")
+
+
+@app.middleware("http")
+async def get_user_middleware(request: Request, call_next):
+    token = request.cookies.get("access-token")
+    
+    if not token:
+        request.state.user = None
+    
+    if token:
+        user = verify_and_decode_token(token)
+        if user:
+            request.state.user = user
+        else:
+            request.state.user = None
+    
+    print(request.state.user)
+    response = await call_next(request)
+    return response
 
 
 # Ref:- https://fastapi.tiangolo.com/how-to/extending-openapi/#overriding-the-defaults
