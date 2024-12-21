@@ -21,23 +21,6 @@ def api_root():
     }
 
 
-@api_router.get("/profile", status_code=status.HTTP_200_OK)
-def user_profile(request: Request):
-    token = request.cookies.get("access-token")
-    
-    response = RedirectResponse(url="/frontend/loginpage.html", status_code=status.HTTP_303_SEE_OTHER)
-    
-    if not token:
-        return response
-    
-    payload = verify_and_decode_token(token)
-    if payload == False:
-        response.delete_cookie("access-token")
-        return response
-    
-    return { "token": token, "user": payload }
-
-
 @api_router.get("/borrows")
 def get_all_active_borrow_book(conn: sqlite3.Connection = Depends(get_db)):
     cursor = conn.cursor()

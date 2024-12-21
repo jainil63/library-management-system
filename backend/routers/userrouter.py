@@ -38,20 +38,34 @@ def create_user(user: UserIn, conn: sqlite3.Connection = Depends(get_db)):
     return dict(newuser)
 
 
-@user_router.get("/{id}", response_model=UserOut)
-def get_user_by_id(id: int, conn: sqlite3.Connection = Depends(get_db)):
+@user_router.get("/profile")
+def get_user_profile(conn: sqlite3.Connection = Depends(get_db)):
+    if not request.state.user:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="You are not login!!")
+    
+    id = request.state.user["id"]
     cursor = conn.cursor()
+    
     cursor.execute("SELECT * FROM users WHERE id = ?", (id,))
     user = cursor.fetchone()
+    
     if user:
-        return dict(user)
+        user = dict(user)
+        cursor.execute("SELECT * FROM books WHERE borrowby = ?", (id,))
+        borrowbooks = cursor.fetchall()
+        if borrowbooks:
+            user["books"] = borrowbooks
+        return user
     else:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Username Not Found!!!")
+
+
+@user_router.put("/", response_model=UserOut)
+def update_user(user: UserIn, conn: sqlite3.Connection = Depends(get_db)):
+    if not request.state.user:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="You are not login!!")
     
-
-
-@user_router.put("/{id}", response_model=UserOut)
-def update_user_by_id(id: int, user: UserIn, conn: sqlite3.Connection = Depends(get_db)):
+    id = request.state.user["id"]
     if user.fullname == "" or user.email == "" or user.username == "" or user.password == "":
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Data provided is not valid!!")
     
