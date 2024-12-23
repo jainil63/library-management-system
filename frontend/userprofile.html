@@ -1,0 +1,53 @@
+<html>
+<head>
+    <title>User Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div id="profile-card">
+        <h2>User:</h2>
+        <p>ID: <span id="id"></span></p>
+        <p>Name: <span id="fullname"></span></p>
+        <p>UserName: <span id="username"></span></p>
+        <p>Password: <span id="password"></span></p>
+        <p>Email: <span id="email"></span></p>
+        <p>Mobile No: <span id="mobile-no"></span></p>
+        <p>IsAdmin: <span id="isadmin"></span></p>
+        <div id="books">
+            <h2>Books:</h2>
+        </div>
+    </div>
+
+    <script>
+        function updateUserInfoOnPage(data) {
+            document.querySelector("#id").textContent = data.id;
+            document.querySelector("#fullname").textContent = data.fullname;
+            document.querySelector("#username").textContent = data.username;
+            document.querySelector("#password").textContent = data.password;
+            document.querySelector("#email").textContent = data.email;
+            document.querySelector("#mobile-no").textContent = data.mobileno;
+            document.querySelector("#isadmin").textContent = data.isadmin;
+            
+            let books =  document.querySelector("#books");
+            data.books.forEach(element => {
+                let paragraphElem = document.createElement("p");
+                paragraphElem.textContent = element.title;
+                books.appendChild(paragraphElem);
+            });
+        }
+
+        async function main() {
+            let res = await fetch("/api/v1/users/profile");
+            if (res.ok) {
+                let data = await data.json();
+                updateUserInfoOnPage(data);
+            } 
+            else {
+                window.location.pathname = "/frontend/loginpage.html"
+            }
+        }
+
+        main();
+    </script>   
+</body>
+</html>

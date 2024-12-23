@@ -64,6 +64,7 @@ def get_user_profile(request: Request, conn: sqlite3.Connection = Depends(get_db
         user = dict(user)
         cursor.execute("SELECT * FROM books WHERE borrowby = ?", (id,))
         borrowbooks = cursor.fetchall()
+        user["books"] = []
         if borrowbooks:
             user["books"] = borrowbooks
         return user

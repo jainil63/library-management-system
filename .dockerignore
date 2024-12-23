@@ -1,0 +1,6 @@
+docs/
+.venv/
+.gitignore
+app.db
+DockerFile
+*.md
