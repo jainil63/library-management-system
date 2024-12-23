@@ -1,12 +1,10 @@
 from fastapi import FastAPI, HTTPException, Request, status
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
-from fastapi.openapi.utils import get_openapi
 from fastapi.middleware.cors import CORSMiddleware
 from .api import api_router
 from . import database
 from .metadata import Config
-from .custom_schema import modify_openapi_schema
 from .utils import verify_and_decode_token
 
 
@@ -51,32 +49,6 @@ async def get_user_middleware(request: Request, call_next):
     print(request.state.user)
     response = await call_next(request)
     return response
-
-
-# Ref:- https://fastapi.tiangolo.com/how-to/extending-openapi/#overriding-the-defaults
-def custom_openapi_schema_generator():
-    # return cached openapi schema
-    if app.openapi_schema:
-        return app.openapi_schema
-
-    # call the fastapi defualt method
-    openapi_schema = get_openapi(
-        title=Config.APP_NAME,
-        version=Config.API_VERSION,
-        summary=Config.APP_SUMMARY,
-        description=Config.APP_DESCRIPTION,
-        routes=app.routes,
-    )
-
-    modify_openapi_schema(
-        openapi_schema
-    )  # function modify openapi_schema itself to have custom property
-
-    app.openapi_schema = openapi_schema  # cacheing
-    return app.openapi_schema
-
-
-app.openapi = custom_openapi_schema_generator  # Modify fastapi schema function with custom function
 
 
 app.mount("/frontend", StaticFiles(directory="frontend", html=True), name="frontend")
