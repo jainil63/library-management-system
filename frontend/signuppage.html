@@ -3,25 +3,37 @@
 	<title>Sign-in Page</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-[url('https://img.freepik.com/free-photo/anime-style-cozy-home-interior-with-furnishings_23-2151176467.jpg')] bg-center bg-cover bg-no-repeat w-screen h-screen flex justify-center bg-gray-300">
-	<div class="h-screen w-screen h-[100vh] bg-black opacity-70 flex flex-col justify-center items-center">
-		<form action="/api/v1/auth/login" method="POST" class="text-center relative text-white flex flex-col gap-6 mx-auto border-2 rounded-md py-4 w-[30%] py-6">
+<body class="bg-[url('https://img.freepik.com/premium-photo/library-with-many-books-shelves-knowledge-education-learning-concept-generative-ai_159242-23146.jpg?semt=ais_hybrid')] bg-center bg-cover bg-no-repeat w-screen h-screen flex justify-center bg-gray-300">
+    <div class="h-screen w-screen h-[100vh] bg-black opacity-70 flex flex-col justify-center items-center">
+        <div class="h-screen w-screen h-[100vh] bg-black opacity-70 flex flex-col justify-center items-center">
+		<header>
+			</nav>
+				<ul>
+					<li>
+						<a href="index.html">
+							<img src="https://i.pinimg.com/736x/d7/34/6c/d7346c03444c44944cf2f5b5674ccf27.jpg" alt="Home" class="rounded-full absolute right-20 gap-4 logo-container w-8 h-8 top-10">
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</header>
+		<form action="/api/v1/auth/signup" method="POST" class="text-center relative text-white flex flex-col gap-6 mx-auto border-2 rounded-md py-4 w-[30%] py-6">
 		<h1 class="flex justify-center text-5xl my-5 uppercase font-semibold">Create Account</h1>
 			<div class="flex flex-col gap-2[70%] mx-auto">
-				<label class="text-xl font-semibold text-left" style="font-size: 20px;">Full Name</label>
-				<input  class="outline-none px-4 py-2 rounded-full bg-transparent border-2 text-white" placeholder="fullname" name="fullname" required>
+				<label class="text-xl font-semibold text-left" style="font-size: 20px;">Full-Name: </label>
+				<input <input  class="outline-none px-4 py-2 rounded-full bg-transparent border-2 text-white" type="text" placeholder="fullname" name="fullname" required>
 			</div>
 			<div class="flex flex-col gap-2[70%] mx-auto">
-				<label class="text-xl font-semibold text-left" style="font-size: 20px;">Username</label>
-				<input class="outline-none px-4 py-2 rounded-full bg-transparent border-2 text-white" placeholder="username" name="username" required>
+				<label class="text-xl font-semibold text-left" style="font-size: 20px;">E-mail </label>
+				<input class="outline-none px-4 py-2 rounded-full bg-transparent border-2 text-white" placeholder="email" type="email" name="email" required>
 			</div>
 			<div class="flex flex-col gap-2[70%] mx-auto">
-				<label class="text-xl font-semibold text-left" style="font-size: 20px;">E-mail</label>
-				<input class="outline-none px-4 py-2 rounded-full bg-transparent border-2 text-white" placeholder="email" name="email" required>
+				<label <label class="text-xl font-semibold text-left" style="font-size: 20px;">New Username</label>
+				<input class="outline-none px-4 py-2 rounded-full bg-transparent border-2 text-white" placeholder="new username"type="text" name="username" required>
 			</div>
 			<div class="flex flex-col gap-2[70%] mx-auto">
-				<label class="text-xl font-semibold text-left" style="font-size: 20px;">Create Password</label>
-				<input class="outline-none px-4 py-2 rounded-full bg-transparent border-2 text-white" placeholder="Create Password" type="password">
+			    <label class="text-xl font-semibold text-left" style="font-size: 20px;">Confirm Password</label>
+				<input class="outline-none px-4 py-2 rounded-full bg-transparent border-2 text-white" placeholder="Confirm password" type="password" name="password" required>
 			</div>
 			<div class="bg-purple-700 px-4 py-2 rounded-md text-xl w-[200px] mx-auto hover:bg-transparent hover:border-purple-600 border-2">
 				<a href="login.html"><input class="button" type="submit" value="Create" name="Create"></a>
