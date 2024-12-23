@@ -19,8 +19,7 @@ CREATE TABLE IF NOT EXISTS books (
     author TEXT,
     category TEXT,
     borrowby INTEGER DEFAULT NULL, 
-    price INTEGER,
-    FOREIGN KEY (borrowby) REFERENCES users (id),
+    price INTEGER
 );
 
 COMMIT;

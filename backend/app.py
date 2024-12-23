@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Request, Response, status
+from fastapi import FastAPI, HTTPException, Request, status
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.openapi.utils import get_openapi
@@ -15,7 +15,7 @@ app = FastAPI(
     version=Config.API_VERSION,
     summary=Config.APP_SUMMARY,
     description=Config.APP_DESCRIPTION,
-    license_info=Config.LICENSE_INFO
+    license_info=Config.LICENSE_INFO,
 )
 
 app.add_middleware(
@@ -23,8 +23,9 @@ app.add_middleware(
     allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"]
+    allow_headers=["*"],
 )
+
 
 @app.on_event("startup")
 def startup_event():
@@ -36,17 +37,17 @@ def startup_event():
 @app.middleware("http")
 async def get_user_middleware(request: Request, call_next):
     token = request.cookies.get("access-token")
-    
+
     if not token:
         request.state.user = None
-    
+
     if token:
         user = verify_and_decode_token(token)
         if user:
             request.state.user = user
         else:
             request.state.user = None
-    
+
     print(request.state.user)
     response = await call_next(request)
     return response
@@ -57,20 +58,23 @@ def custom_openapi_schema_generator():
     # return cached openapi schema
     if app.openapi_schema:
         return app.openapi_schema
-    
+
     # call the fastapi defualt method
     openapi_schema = get_openapi(
         title=Config.APP_NAME,
         version=Config.API_VERSION,
         summary=Config.APP_SUMMARY,
         description=Config.APP_DESCRIPTION,
-        routes=app.routes
+        routes=app.routes,
     )
-    
-    modify_openapi_schema(openapi_schema) # function modify openapi_schema itself to have custom property
-    
-    app.openapi_schema = openapi_schema # cacheing
+
+    modify_openapi_schema(
+        openapi_schema
+    )  # function modify openapi_schema itself to have custom property
+
+    app.openapi_schema = openapi_schema  # cacheing
     return app.openapi_schema
+
 
 app.openapi = custom_openapi_schema_generator  # Modify fastapi schema function with custom function
 
@@ -100,7 +104,10 @@ def reset_all_data(masterpassword: str):
         print("INFO:     Database reinitialized!!!")
         return RedirectResponse("/frontend")
     else:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorrect MasterPassword!!")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect MasterPassword!!",
+        )
 
 
 app.include_router(api_router, prefix="/api/v1", tags=["Backend"])
