@@ -3,21 +3,41 @@
     <title>User Profile</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div id="profile-card">
-        <h2>User:</h2>
-        <p>ID: <span id="id"></span></p>
-        <p>Name: <span id="fullname"></span></p>
-        <p>UserName: <span id="username"></span></p>
-        <p>Password: <span id="password"></span></p>
-        <p>Email: <span id="email"></span></p>
-        <p>Mobile No: <span id="mobile-no"></span></p>
-        <p>IsAdmin: <span id="isadmin"></span></p>
+<body class="flex bg-[url('https://miro.medium.com/v2/resize:fit:1200/1*6Jp3vJWe7VFlFHZ9WhSJng.jpeg')]">
+    <div id="profile-card" class="flex justify-center flex items-center bg-transparent h-screen w-screen h-[100vh] flex flex-col text-xl left-10">
+        <form method="post" class="relative text-white flex flex-col gap-4 mx-auto border-2 rounded-md py-4 w-[30%] opacity-70 py-6 bg-black gap-2[70%]">
+        <div class="flex justify-center">
+            <h1>User Information</h1>
+        </div>
+        <div>
+           <label><h2>User:</h2></label>
+        </div>
+        <div>
+            <label><p>ID: <span id="id"></span></p></label>
+        </div>
+        <div>
+            <label><p>Name: <span id="fullname"></span></p></label>
+        </div>
+        <div>
+            <label><p>UserName: <span id="username"></span></p></label>
+        </div>
+        <div>
+            <label><p>Password: <span id="password"></span></p></label>
+        </div>
+        <div>
+            <label><p>Email: <span id="email"></span></p></label>
+        </div>
+        <div>
+            <label><p>Mobile No: <span id="mobile-no"></span></p></label>
+        </div>
+        <div>
+            <label><p>IsAdmin: <span id="isadmin"></span></p></label>
+        </div>
         <div id="books">
             <h2>Books:</h2>
         </div>
+    </form>
     </div>
-
     <script>
         function updateUserInfoOnPage(data) {
             document.querySelector("#id").textContent = data.id;
