@@ -11,7 +11,6 @@ def get_sqlscript_content(path):
     sql = ""
     with open(path) as file:
         sql = file.read()
-    # print(sql.replace("\n", ""))
     return sql
 
 
