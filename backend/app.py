@@ -46,7 +46,6 @@ async def get_user_middleware(request: Request, call_next):
         else:
             request.state.user = None
 
-    print(request.state.user)
     response = await call_next(request)
     return response
 
