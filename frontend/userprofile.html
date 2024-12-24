@@ -59,7 +59,7 @@
         async function main() {
             let res = await fetch("/api/v1/users/profile");
             if (res.ok) {
-                let data = await data.json();
+                let data = await res.json();
                 updateUserInfoOnPage(data);
             } 
             else {
