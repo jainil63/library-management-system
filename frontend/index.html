@@ -1,10 +1,10 @@
 <html>
 <head>
-	<title>Library Management System</title>
-	<script src="https://cdn.tailwindcss.com"></script>
+    <title>Library Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-[url('https://static.vecteezy.com/system/resources/thumbnails/022/574/915/small_2x/abstract-blurred-public-library-interior-space-blurry-room-with-bookshelves-by-defocused-effect-use-for-background-or-backdrop-in-abstract-blurred-publicbusiness-or-education-concepts-generative-ai-photo.jpg')] bg-full bg-center bg-cover bg-no-repeat w-screen h-screen">
-    <div class="h-screen w-screen w-[100vh] bg-black opacity-70 flex flex-col flex justify-center gap-6 items-center">
+<body class="bg-[url('https://static.vecteezy.com/system/resources/thumbnails/022/574/915/small_2x/abstract-blurred-public-library-interior-space-blurry-room-with-bookshelves-by-defocused-effect-use-for-background-or-backdrop-in-abstract-blurred-publicbusiness-or-education-concepts-generative-ai-photo.jpg')] bg-full bg-center bg-cover w-screen h-screen">
+    <div class="h-screen w-screen bg-black opacity-70 flex flex-col justify-center items-center">
         <header>
             <nav>
                 <ul>
@@ -16,36 +16,70 @@
                 </ul>
             </nav>
         </header>
-        
         <div>
-             <h1 class="text-center text-white text-5xl my-2 my-4 my-2">Libify - Library Management System</h1>
+            <h1 class="text-center text-white text-5xl my-4">Libify - Library Management System</h1>
         </div>
-        <div class="relative w-72">
+        <div class="relative w-72 mb-8 top-10">
             <input type="text" class="w-full pl-10 pr-4 py-2 rounded-full border bg-transparent text-white focus:outline-none focus:ring-2 focus:ring-transparent-500 focus:border-transparent" placeholder="Search...">
             <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a7 7 0 011.486 13.747l7.527 7.528a1 1 0 011.415-1.415l-7.528-7.527A7 7 0 1111 4z"></path>
             </svg>
         </div>
-        <section class="py-12 px-4 bg-transparent" id="featured">
-        <div class="max-w-screen-xl mx-auto">
-            <h2 class="text-2xl text-white font-bold mb-6">Featured Books</h2>
-            <div class="grid grid-cols-4 gap-8">
-                <div class="bg-white p-4 rounded-lg shadow">
-                    <img src="https://via.placeholder.com/150" alt="Book 1" class="w-full h-40 object-cover rounded-lg">
-                    <h3 class="mt-4 font-bold">Book Title 1</h3>
-                    <p class="text-gray-500">$20.00</p>
-                    <button class="bg-blue-200 text-black ">Add to Cart</button>
-                </div>
-                <div class="bg-white p-4 rounded-lg shadow">
-                    <img src="https://via.placeholder.com/150" alt="Book 2" class="w-full h-40 object-cover rounded-lg">
-                    <h3 class="mt-4 font-bold">Book Title 2</h3>
-                    <p class="text-gray-500">$25.00</p>
-                    <button class="bg-blue-200 text-black h-6">Add to Cart</button>
-                </div>
-                <!-- Add more books -->
+        <section class="py-16 px-4">
+            <h2 class="text-4xl font-bold text-center text-white mb-12">Browse Categories</h2>
+            <div class="flex items-center justify-center gap-6">
+                <section class="products flex gap-20">
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-xl">
+                        <a href="#" class="block h-full">
+                            <img src="https://via.placeholder.com/300" alt="Category 1" class="w-full h-40 object-cover">
+                            <div class="p-4">
+                                <h3 class="text-xl font-semibold text-gray-800">Sports</h3>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-xl">
+                        <a href="#" class="block h-full">
+                            <img src="https://via.placeholder.com/300" alt="Category 2" class="w-full h-40 object-cover">
+                            <div class="p-4">
+                                <h3 class="text-xl font-semibold text-gray-800">Cooking</h3>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-xl">
+                        <a href="#" class="block h-full">
+                            <img src="https://via.placeholder.com/300" alt="Category 3" class="w-full h-40 object-cover">
+                            <div class="p-4">
+                                <h3 class="text-xl font-semibold text-gray-800">Science</h3>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-xl">
+                        <a href="#" class="block h-full">
+                            <img src="https://via.placeholder.com/300" alt="Category 3" class="w-full h-40 object-cover">
+                            <div class="p-4">
+                                <h3 class="text-xl font-semibold text-gray-800">Manga</h3>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-xl">
+                        <a href="#" class="block h-full">
+                            <img src="https://via.placeholder.com/300" alt="Category 3" class="w-full h-40 object-cover">
+                            <div class="p-4">
+                                <h3 class="text-xl font-semibold text-gray-800">Political</h3>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-xl">
+                        <a href="#" class="block h-full">
+                            <img src="https://via.placeholder.com/300" alt="Category 3" class="w-full h-40 object-cover">
+                            <div class="p-4">
+                                <h3 class="text-xl font-semibold text-gray-800">Bussiness</h3>
+                            </div>
+                        </a>
+                    </div>
+                </section>
             </div>
-        </div>
-    </section>
+        </section>
     </div>
 </body>
 </html>
