@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="bg-gray-900 text-white py-4">
+        <nav class="container mx-auto flex justify-between items-center">
+            <ul class="flex items-center">
+                <li class="mr-6"><a href="#" class="text-white hover:text-gray-300">Home</a></li>
+                <li class="mr-6"><a href="#" class="text-white hover:text-gray-300">About</a></li>
+                <li><a href="#" class="text-white hover:text-gray-300">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="container mx-auto py-12">
+        <section class="bg-white rounded shadow-md py-12">
+            <h1 class="text-3xl font-bold mb-4">Get in Touch</h1>
+            <p class="text-lg mb-8">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet nulla auctor, vestibulum magna sed, convallis ex.</p>
+            <form class="w-full max-w-lg">
+                <div class="flex flex-wrap -mx-3 mb-6">
+                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="name">Name</label>
+                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="name" type="text" placeholder="John Doe">
+                    </div>
+                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="email">Email</label>
+                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="email" type="email" placeholder="john.doe@example.com">
+                    </div>
+                </div>
+                <div class="flex flex-wrap -mx-3 mb-6">
+                    <div class="w-full px-3 mb-6">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="message">Message</label>
+                        <textarea class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="message" placeholder="Your message..."></textarea>
+                    </div>
+                </div>
+                <div class="flex justify-end">
+                    <button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" type="submit">Send Message</button>
+                </div>
+            </form>
+        </section>
+    </main>
+    <footer class="bg-gray-900 text-white py-4">
+        <p class="container mx-auto text-center">&copy; 2023 Contact Us Page</p>
+    </footer>
+</body>
+</html>
